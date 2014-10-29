@@ -1,0 +1,156 @@
+<%@page contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://struts.apache.org/tags-nested" prefix="nested" %>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<script language="javascript" src="${pageContext.request.contextPath}/scripts/<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>/<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>image.js"></script>
+<link href="${pageContext.request.contextPath}/styles/calendar.css" type="text/css" rel="stylesheet"/>
+
+<body>
+<html:form action="${action}" method="POST"> 
+     <div style="width:100%;clear:right">
+          <table class="formbox" border="0" cellpadding="0" cellspacing="0" width="90%" align="left">
+                <html:hidden property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.id"/>
+                <html:hidden property="programId" styleId="subProgramId"/>
+                <html:hidden property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.groupId"/>
+                <html:hidden property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.rank"/>
+                <html:hidden property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.hidden" styleId="hidden"/>  
+                <html:hidden property="categoryId" styleId="categoryId"/> 
+                <html:hidden property="hiddenValue" styleId="hiddenValue"/>  
+                <tr>
+                     <th class="formtitle" colspan="2"><bean:message key="title.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>"/></th>
+                </tr>       
+                <tr>
+                    <td class="formfield" nowrap="true" width="8%">
+                         <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.text'/>:
+                    </td>
+                    <td class="formvalue">
+                         <html:textarea property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.text" styleId="text" style="width:490px" rows="4"/> 
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="formfield" nowrap="true" width="8%">
+                         <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.altText' />:
+                    </td>
+                    <td class="formvalue">
+                         <html:textarea property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.altText" styleId="altText" style="width:490px" rows="4"/> 
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="formfield" nowrap="true" width="8%">
+                         <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.hidden'/>:
+                    </td> 
+                    <td class="formvalue" style="padding-left:0px">
+                       <html:checkbox property="hiddenValue" styleId="hiddenId"></html:checkbox>
+                    </td>
+                    <!-- 
+                    <td style="padding:3px">
+                       <html:select property="hiddenValue" styleId="hiddenId">
+                		  <html:option value="true">Yes</html:option>
+                		  <html:option value="false">No</html:option>
+			           </html:select>
+                    </td>
+                     -->
+                </tr>
+                <tr>
+                   <td class="formfield" nowrap="true" width="8%" >
+                         <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.options' />:
+                    </td>
+                    <td style="padding:3px">
+                       <html:select property="optionValue" styleId="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>Option" onchange="selectOption()">
+                		  <html:option value="nc">Not Clickable</html:option>
+                		  <html:option value="ltv">Links to Video</html:option>
+                		  <html:option value="el">External Link</html:option>
+			           </html:select>
+                    </td>
+                </tr>
+                <tr>
+                  <td colspan="2" width="100%">
+                   <div id="linkDiv" width="100%" style="display:${optionValue=='el'?'block':'none'}">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                       <td class="formfield" nowrap="true" width="8%">
+                            <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.link'/>
+                       </td>
+                       <td class="formvalue" width="100%">
+                         <html:text property="link" styleId="link" style="width:490px"/> 
+                       </td>                     
+                    </tr>
+                    </table>
+                   </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" width="100%">
+                   <div id="categoryDiv" style="display:${optionValue=='ltv'?'block':'none'}">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                       <td>&nbsp;</td>
+                    </tr>
+                    <tr valign="top">
+                      <td class="formfield" nowrap="true" width="8%">
+                            Choose Category:
+                         </td>
+                         <td class="formvalue" align="left">
+                            <img src="<c:url value='/images/content/select.gif'/>" border="0" title="Select category." onClick="openCategory()"/>                                                                                 
+                         </td>
+                    </tr>
+                    <tr>
+                       <td class="formfield" nowrap="true" width="8%">
+                            <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.categoryId'/>:
+                         </td>
+                         <td class="formvalue">          
+                            <span id="categoryLabel">${categoryName}</span>                   
+                            <html:text property="categoryName" styleId="categoryName" readonly="true" style="width:250px;display:none"/> 
+                          <!-- <img src="<c:url value='/images/content/select.gif'/>" border="0" title="Select category." onClick="openCategory()"/>  -->                                                       
+                         </td>
+                    </tr>
+                    <tr>
+                       <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                         <td class="formfield" nowrap="true" width="8%">
+                            Choose Program:
+                         </td>
+                         <td class="formvalue" >                           
+                            <img src="<c:url value='/images/content/icon_add.gif'/>" border="0" title="Select program." onClick="selectProgram()"/>
+                            <img src="<c:url value="/images/content/icon_sub.gif"/>" title="Remove program." onClick="removeProgram()"/>                           
+                         </td>                    
+                    </tr> 
+                    <tr>
+                         <td class="formfield" nowrap="true" width="8%">
+                            <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.program'/>:
+                         </td>
+                         <td class="formvalue" >
+                            <span id="programLabel" style="width:110px">${programName}</span>
+                            <html:text property="<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.programName" styleId="subProgramName" readonly="true" style="width:250px;display:none" />                            
+                         </td>                    
+                    </tr>  
+                    <!-- 
+                    <tr>
+                         <td class="formfield" nowrap="true" width="8%">
+                            <bean:message key='label.<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.categoryId'/>
+                         </td>
+                         <td style="padding:3px">
+                            <html:select property="categoryId" styleId="categoryId">
+                                  <option></option>
+				                 <c:forEach var="cat" items="${categoryList}">
+                 		     		<html:option value="${cat.id}">${cat.desc_en}</html:option>
+			                     </c:forEach>
+			                </html:select>
+                         </td>
+                     </tr>
+                      -->  
+                     </table>
+                  </div>
+                 </td>
+                </tr>
+          </table>
+     </div>
+    <div style="width:100%; float:left; noWrap:true;padding-top:10px;" align="left">
+	    <input name="submit1" type="button" value="" class="savebutton" onClick="checkFormValidate()" />				
+		<input name="cancel" type="button" value="" class="cancelbutton" onClick="window.location='list.do'" />
+	</div> 
+ </html:form>
+</body>

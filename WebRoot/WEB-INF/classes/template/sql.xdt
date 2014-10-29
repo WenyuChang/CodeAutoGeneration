@@ -1,0 +1,6 @@
+create table <XDtClass:className/>
+(
+	<XDtField:forAllFields><XDtField:ifHasFieldTag tagName="FieldAnnotation.ID"><XDtField:fieldName /> <XDtField:fieldTagValue tagName="FieldAnnotation.ID" paramName="type"/>,</XDtField:ifHasFieldTag></XDtField:forAllFields>
+	<XDtField:forAllFields><XDtField:ifHasFieldTag tagName="FieldAnnotation"><XDtField:fieldName /> <XDtField:fieldTagValue tagName="FieldAnnotation" paramName="type"/>,
+	</XDtField:ifHasFieldTag></XDtField:forAllFields>
+);

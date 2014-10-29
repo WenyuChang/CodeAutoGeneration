@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="<XDtClass:classTagValue tagName="classAnnotation" paramName="name" />form" type="org.apache.struts.action.<XDtClass:className/>Action">
+		<XDtField:forAllFields>
+		<form-property name="<XDtField:fieldName />" type="<XDtField:fieldType />" />
+		</XDtField:forAllFields>
+	</form-beans>
+	<action-mappings>
+		<action path=""
+			type="" parameter=""
+			name="<XDtClass:className />Form" input=".saprogramadmin"
+			scope="request" validate="false">
+			<forward name="success" path=""/>
+		</action>
+	</action-mappings>
+</struts-config>

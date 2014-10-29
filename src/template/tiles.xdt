@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+	<definition name=".<XDtClass:className/>" extends=".mainlayout">
+		<put name="title" value="title.<XDtClass:className/>"/>
+		<put name="action" value=""/>
+		<put name="content" value=""/>
+	</definition>	
+	
+	<definition name=".new<XDtClass:className/>" extends=".mainlayout">
+		<put name="title" value="title.<XDtClass:className/>.new"/>
+		<put name="onload" value=""/>
+		<put name="content" value=""/>
+		<put name="action" value=""/>
+	</definition>
+
+	<definition name=".edit<XDtClass:className/>" extends=".mainlayout">
+		<put name="title" value=""/>
+		<put name="onload" value=""/>
+		<put name="content" value=""/>
+		<put name="action" value=""/>
+	</definition>
+</tiles-definitions>

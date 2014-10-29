@@ -1,0 +1,89 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+
+<div id="positionArea" style="ffffff;width:300px;height:100px;position:absolute;top:200;left:370;z-index:2000;display:none" align="left" class="popup">
+	<div style="position:relative;left:280px;top:5px;">
+		<img src="<c:url value='/images/content/icon_cancel.gif'/>" border="0" title="close" onclick="hidePositionArea()"/>
+	</div>
+	<div style="padding:5 5 5 5;font-weight:bold;font-size:9pt;color:#747474;text-align:left">Please input the position number you want the selected row to move to:</div>
+	<div style="padding:5 5 5 5">
+		<input type="text" id="position">&nbsp;
+		<input type="button" class="okbutton" value="" onclick="moveRowTo()"/>
+	</div>
+</div>
+<html:form action="${action}" method="POST">
+<table cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+	<td class="gridheader" nowrap="true">
+		<bean:message key="search.found"/> ${records.totalCount} <bean:message key="search.record${records.totalCount==1 ? '' : 's'}"/>
+	</td>
+	<td align="right">
+		<table border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td>
+			<a href="#_" onclick="javascript:saveAll()"/>
+				<img src="<c:url value='/images/content/icon_save.gif'/>" border="0" title="Save Rank"/>
+			</a>&nbsp;
+			<a href="new.do"/>
+				<img src="<c:url value='/images/content/icon_add.gif'/>" border="0" title="New <XDtClass:className/>"/>
+			</a>&nbsp;
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+</table>
+<table class="grid" cellspacing="0" cellpadding="0" width="100%" id="<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>"  style="table-layout:fixed">
+	<tr>
+	<th class="grid" nowrap="true" width="80%"><bean:message key="label.<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.text" /></th> 
+	<th class="grid" nowrap="true" width="8%"><bean:message key="label.<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.hidden" /></th>
+	<th class="grid" nowrap="true" width="12%"></th>	
+	<th style="display:none"></th>
+	<th style="display:none"></th>
+	</tr>
+	<c:if test="${records.totalCount==0}">
+		<tr class="grid0">
+		<td colspan="5" class="grid">
+			<bean:message key="search.no.records"/>
+		</td>
+		</tr>
+	</c:if>
+	<c:forEach items="${records.values}" var="<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>" varStatus="i">
+		<tr class="grid${i.index % 2}" >
+		<td class="grid" align="left" style="word-break:break-all;word-wrap:break-word;overflow:hidden">${<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.text}</td>
+		<td class="grid" style="text-align:center">
+			<input type="checkbox" name="<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>${i.index}" ${(<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.hidden==true)?'checked':''} onclick="changeHidden(event)">
+		</td>
+		<td class="grid" align="center">
+			<img src="<c:url value='/images/content/icon_up.gif'/>" border="0" onclick="upItem(event)" style="cusor:hand;cursor:pointer" title="Up"/>&nbsp;	     
+	       		<img src="<c:url value='/images/content/icon_down.gif'/>" border="0" onclick="downItem(event)" style="cusor:hand;cursor:pointer" title="Down"/>&nbsp;	             
+			<a href="javascript:editItem('${<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.id}')">
+				<img src="<c:url value='/images/content/icon_edit.gif'/>" border="0" title="Edit"/>
+			</a>&nbsp;
+			<a href="javascript:deleteItem('${<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.id}')">
+				<img src="<c:url value='/images/content/icon_del.gif'/>" border="0" title="Delete"/>
+			</a>	     
+		</td> 
+		<td style="display:none">${<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.id}</td> 
+		<td style="display:none">${<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.hidden}</td>
+		</tr>
+	</c:forEach>
+</table>
+<%@include file="../../layout/gridfooter.jsp"%>
+</html:form>
+<script type="text/javascript">
+	function editItem(id)
+	{
+		window.location.href="<c:url value='/content/<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>/editInput.do?id="+id+"' />";
+	}
+	function deleteItem(id)
+	{
+		if(confirm("Do you want to delete this <XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>?"))
+		{
+			window.location.href="<c:url value='/content/<XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>/delete.do?id="+id+"' />";
+		}
+	}
+</script>
+

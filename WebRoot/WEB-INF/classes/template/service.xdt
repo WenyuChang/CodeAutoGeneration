@@ -1,0 +1,19 @@
+import com.neulion.savanna.common.io.RecordSet;
+import <XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.po.<XDtClass:className/>;
+
+public interface <XDtClass:className/>Service
+{
+    public <XDtClass:className/> update<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);
+    
+
+    public <XDtClass:className/> new<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);
+    
+
+    public void delete<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);
+    
+
+    public RecordSet query<XDtClass:className/>ByID(Integer id);
+    
+
+    public RecordSet query<XDtClass:className/>All();
+}

@@ -1,0 +1,10 @@
+menu.<XDtClass:className/> = <XDtClass:className/>
+menu.<XDtClass:className/>.new = New <XDtClass:className/>
+
+title.<XDtClass:className/> = <XDtClass:className/>
+title.<XDtClass:className/>.new = New <XDtClass:className/>
+title.<XDtClass:className/>.edit = Edit <XDtClass:className/>
+
+
+<XDtField:forAllFields>
+label.server.<XDtClass:className/><XDtField:getCapitalizedFieldName /> = <XDtClass:className/> <XDtField:getCapitalizedFieldName /></XDtField:forAllFields>

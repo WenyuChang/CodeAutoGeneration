@@ -1,0 +1,8 @@
+/**
+* Gets the <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/> service
+* @return the <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/> service
+*/
+public static <XDtClass:className/>Service get<XDtClass:className/>Service()
+{
+	return (<XDtClass:className/>Service) getService("service.<XDtClass:className/>");
+}

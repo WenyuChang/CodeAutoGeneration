@@ -1,0 +1,34 @@
+import com.neulion.savanna.common.io.RecordSet;
+import <XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.po.<XDtClass:className/>
+
+import com.neulion.savanna.common.io.RecordSet;
+import com.neulion.savanna.common.service.AbstractDaoService;
+
+public class <XDtClass:className/>ServiceImpl extends AbstractDaoService 
+              implements <XDtClass:className/>Service
+{
+    public void delete<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>)
+    {  
+        this.getDao().delete(<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);
+    }
+
+    public <XDtClass:className/> new<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>)
+    { 
+        return (<XDtClass:className/>)this.getDao().create(<XDtClass:classTagValue tagName="className" paramName="name"/>);
+    }
+
+    public <XDtClass:className/> update<XDtClass:className/>(<XDtClass:className/> <XDtClass:classTagValue tagName="className" paramName="name"/>)
+    { 
+        return (<XDtClass:className/>)this.getDao().update(<XDtClass:classTagValue tagName="className" paramName="name"/>);
+    }
+    
+    public RecordSet query<XDtClass:className/>ByID(Integer id)
+    {
+		return (<XDtClass:className/>)getDao().find(<XDtClass:className/>.class, id);
+    }
+    
+    public RecordSet query<XDtClass:className/>All()
+    {
+        return getDao().query(<XDtClass:className/>.class);;
+    }
+}

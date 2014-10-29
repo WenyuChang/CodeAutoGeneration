@@ -1,0 +1,160 @@
+<?xml version="1.0"?>  
+<project name="xdocletGenerate" default="init" basedir=".">
+	<property name="xdocletPath" value="D:/software/tool/xdoclet 1.2.3/xdoclet-1.2.3/" />
+	<property name="tableName" value="Student" />
+	<path id="xdoclet.classpath">
+		<fileset dir="${xdocletPath}/lib">
+			<include name="*.jar"/>
+		</fileset> 
+	</path>
+	<taskdef name="doclet" classname="xdoclet.DocletTask" classpathref="xdoclet.classpath" />
+	<target name="init">
+		<ant target="refresh" />
+		<ant target="sqlGenerate" />
+		<ant target="serviceGenerate" />
+		<ant target="actionGenerate" />
+		<ant target="hbmXmlGenerate" />
+		<ant target="propertiesGenerate" />
+		<ant target="jspGenerate" />
+		<ant target="serviceFactoryGenerate" />
+		<ant target="strutsGenerate" />
+		<ant target="tilesGenerate" />
+	</target>
+
+	<target name="refresh">
+		<delete dir="src/Action" />
+		<delete dir="src/hbm" />
+		<delete dir="src/jsp" />
+		<delete dir="src/properties" />
+		<delete dir="src/service" />
+		<delete dir="src/Service Factory" />
+		<delete dir="src/sql" />
+		<delete dir="src/struts" />
+		<delete dir="src/tiles" />
+		<mkdir dir="src/Action" />
+		<mkdir dir="src/hbm" />
+		<mkdir dir="src/jsp" />
+		<mkdir dir="src/properties" />
+		<mkdir dir="src/service" />
+		<mkdir dir="src/Service Factory" />
+		<mkdir dir="src/sql" />
+		<mkdir dir="src/struts" />
+		<mkdir dir="src/tiles" />
+	</target>
+
+
+	<target name="sqlGenerate">	
+		<doclet destdir="src/sql" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/sql.xdt"
+				destinationFile="../{0}.sql"/>
+		</doclet>
+	</target>
+
+	<target name="serviceGenerate">
+		<doclet destdir="src/service" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/service.xdt"
+				destinationFile="../{0}Service.java"/>
+		</doclet>
+		<doclet destdir="src/service" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/serviceImpl.xdt"
+				destinationFile="../{0}ServiceImpl.java"/>
+		</doclet>
+	</target>
+
+	<target name="actionGenerate">
+		<doclet destdir="src/action" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/Action.xdt"
+				destinationFile="../{0}Action.java"/>
+		</doclet>
+	</target>
+
+	<target name="hbmXmlGenerate">
+		<doclet destdir="src/hbm" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/hbm.xdt"
+				destinationFile="../{0}.hbm.xml"/>
+		</doclet>
+	</target>
+
+	<target name="propertiesGenerate">
+		<doclet destdir="src/properties" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/properties.xdt"
+				destinationFile="../{0}.properties"/>
+		</doclet>
+	</target>
+
+	<target name="jspGenerate">
+		<doclet destdir="src/jsp" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/jspList.xdt"
+				destinationFile="../{0}List.jsp"/>
+		</doclet>
+		<doclet destdir="src/jsp" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/jspEdit.xdt"
+				destinationFile="../{0}Edit.jsp"/>
+		</doclet>
+	</target>
+
+	<target name="serviceFactoryGenerate">
+		<doclet destdir="src/Service Factory" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/serviceFactory.xdt"
+				destinationFile="../{0}.java"/>
+		</doclet>
+	</target>
+
+	<target name="strutsGenerate">
+		<doclet destdir="src/struts" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/struts.xdt"
+				destinationFile="../{0}-config.java"/>
+		</doclet>
+	</target>
+
+	<target name="tilesGenerate">
+		<doclet destdir="src/tiles" verbose="true">
+			<fileset dir="src">
+				<include name="po/${tableName}.java" />
+			</fileset>
+			<template
+				templateFile="src/template/tiles.xdt"
+				destinationFile="../{0}-tiles.java"/>
+		</doclet>
+	</target>
+</project>

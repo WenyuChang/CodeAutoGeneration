@@ -1,0 +1,101 @@
+/*
+ * Copyright (c) 2008 NeuLion, Inc. All Rights Reserved.
+ */
+//package com.neulion.iptv.pc.action;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import com.neulion.savanna.tvdoss.Param;
+import com.neulion.iptv.ui.struts.AbstractAction;
+import com.neulion.iptv.util.DateUtil;
+import com.neulion.iptv.util.LocationIdUtil;
+import com.neulion.iptv.util.ServiceFactory;
+import com.neulion.savanna.common.io.RecordSet;
+import com.neulion.savanna.common.logger.Logger;
+import com.neulion.savanna.common.util.DateTimeUtil;
+import com.neulion.savanna.common.util.TextUtil;
+
+import <XDtClass:classTagValue tagName="classAnnotation" paramName="package"/>.po.<XDtClass:className/>;
+
+public class <XDtClass:className/>Action extends AbstractAction
+{
+	private final static Logger log = Logger.getInstance(<XDtClass:className/>Action.class);
+    
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception
+	{
+       
+		String parameter = mapping.getParameter();
+		DynaActionForm dyform = (DynaActionForm) form;
+		if("list".equals(parameter))
+		{
+			String name=dyform.getString("name");
+			RecordSet rs=ServiceFactory.get<XDtClass:className/>Service().query<XDtClass:className/>All();
+			request.setAttribute("records", rs);
+		    
+		}
+		else if("save".equals(parameter))
+		{
+			save<XDtClass:className/>Entry(dyform);
+		}
+		else if("delete".equals(parameter))
+		{
+			delete<XDtClass:className/>Entry(dyform);
+		}
+		
+		request.setAttribute("actionForm", form);
+		return mapping.findForward("success");
+	}
+
+	private void delete<XDtClass:className/>Entry(DynaActionForm dyform)
+	{
+		Integer id=null;
+		try
+		{
+			id = Integer.valueOf(dyform.getString("id"));
+		}catch(NumberFormatException  e)
+		{
+			log.debug("Invalid id.");
+			return;
+		}
+		ServiceFactory.get<XDtClass:className/>Service().delete<XDtClass:className/>(
+			ServiceFactory.get<XDtClass:className/>Service().query<XDtClass:className/>ByID(id));
+	}
+
+	private void save<XDtClass:className/>Entry(DynaActionForm dyform)
+	{
+		<XDtClass:className/>Service service=ServiceFactory.get<XDtClass:className/>Service();
+		<XDtClass:className/> <XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>=null;
+		boolean isnew =false;
+		if(!TextUtil.isEmpty(dyform.getString("id")))
+		{
+			<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/> = service.get<XDtClass:className/>(Integer.valueOf(dyform.getString("id")));
+		}
+		else
+		{
+			<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>=new <XDtClass:className/>();
+			<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.setId(LocationIdUtil.getCompanyId());
+			isnew=true;
+		}
+		<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.setName(dyform.getString("name"));
+		<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.setScore(dyform.getString("score"));
+		<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>.setAge(dyform.getString("age"));
+		if(isnew)
+		{
+			<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>=service.new<XDtClass:className/>(<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);   
+		}
+		else
+		{
+			service.update<XDtClass:className/>(<XDtClass:classTagValue tagName="classAnnotation" paramName="name"/>);
+		}
+	}
+}
